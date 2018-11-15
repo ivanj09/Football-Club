@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/mn_teams"
+            android:icon="@drawable/ic_football_badge"
+            android:title="@string/teams"/>
+
+    <item
+            android:id="@+id/mn_match"
+            android:icon="@drawable/ic_football_field_in_perspective"
+            android:title="@string/match"/>
+</menu>

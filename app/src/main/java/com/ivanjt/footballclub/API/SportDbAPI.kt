@@ -22,7 +22,7 @@ object SportDbAPI {
             .build().toString()
     }
 
-    fun getLeagues(): String{
+    fun getLeagues(): String {
         return Uri.parse(BuildConfig.BASE_URL).buildUpon()
             .appendPath(API)
             .appendPath(VERSION)

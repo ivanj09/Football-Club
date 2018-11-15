@@ -1,35 +1,5 @@
 <resources>
     <string name="app_name">Football Club</string>
-    <string-array name="football_club_name">
-        <item>Barcelona FC</item>
-        <item>Real Madrid FC</item>
-        <item>Bayern Munchen FC</item>
-        <item>Manchester City FC</item>
-        <item>Manchester United FC</item>
-        <item>Chelsea FC</item>
-        <item>AC Milan FC</item>
-        <item>Arsenal FC</item>
-    </string-array>
-
-    <string-array name="football_club_desc">
-        <item>Futbol Club Barcelona known simply as Barcelona and colloquially as Barca, is a professional football club based in Barcelona, Catalonia, Spain. Founded in 1899 by a group of Swiss, English and Catalan footballers led by Joan Gamper</item>
-        <item>Real Madrid Club de Futbol ("Royal Madrid Football Club"), commonly known as Real Madrid, is a professional football club based in Madrid, Spain. Founded on 6 March 1902 as the Madrid Football Club, the club has traditionally worn a white home kit since inception.</item>
-        <item>Bayern Munich, or FC Bayern, is a German sports club based in Munich, Bavaria (Bayern). It is best known for its professional football team, which plays in the Bundesliga, the top tier of the German football league system, and is the most successful club in German football history, having won a record 28 national titles and 18 national cups. FC Bayern was founded in 1900 by 11 football players, led by Franz John.</item>
-        <item>Manchester City Football Club is a football club in Manchester, England. Founded in 1880 as St. Mark\'s (West Gorton), it became Ardwick Association Football Club in 1887 and Manchester City in 1894. The club\'s home ground is the City of Manchester Stadium in east Manchester, to which it moved in 2003, having played at Maine Road since 1923.</item>
-        <item>Manchester United Football Club, commonly known as Man United, or simply United, is a professional football club based in Old Trafford, Greater Manchester, England, that competes in the Premier League, the top flight of English football. Nicknamed "the Red Devils", the club was founded as Newton Heath LYR Football Club in 1878, changed its name to Manchester United in 1902 and moved to its current stadium, Old Trafford, in 1910.</item>
-        <item>Chelsea Football Club is a professional football club in London, England, that competes in the Premier League. Founded in 1905, the club\'s home ground since then has been Stamford Bridge.</item>
-        <item>A.C. Milan or simply Milan, is a professional football club in Milan, Italy, founded in 1899.The club has spent its entire history, with the exception of the 1980–81 and 1982–83 seasons, in the top flight of Italian football, known as Serie A since 1929–30.</item>
-        <item>Arsenal Football Club is a professional football club based in Islington, London, England, that plays in the Premier League, the top flight of English football. The club has won 13 League titles, a record 13 FA Cups, two League Cups, the League Centenary Trophy, 15 FA Community Shields, one UEFA Cup Winners Cup and one Inter-Cities Fairs Cup. Arsenal was the first club from the South of England to join The Football League, in 1893, and they reached the First Division in 1904. </item>
-    </string-array>
-
-    <array name="football_club_image">
-        <item>@mipmap/ic_club_barca</item>
-        <item>@mipmap/ic_club_madrid</item>
-        <item>@mipmap/ic_club_bayern</item>
-        <item>@mipmap/ic_club_city</item>
-        <item>@mipmap/ic_club_mu</item>
-        <item>@mipmap/ic_club_chelsea</item>
-        <item>@mipmap/ic_club_acm</item>
-        <item>@mipmap/ic_club_arsenal</item>
-    </array>
+    <string name="match">Match</string>
+    <string name="teams">Teams</string>
 </resources>

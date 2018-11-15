@@ -2,128 +2,80 @@ package com.ivanjt.footballclub
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.ProgressBar
-import android.widget.Spinner
-import com.google.gson.Gson
-import com.ivanjt.footballclub.Adapter.MainAdapter
-import com.ivanjt.footballclub.Model.League
-import com.ivanjt.footballclub.Model.Team
-import com.ivanjt.footballclub.Presenter.MainPresenter
-import com.ivanjt.footballclub.View.MainView
+import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentTransaction
 import org.jetbrains.anko.*
-import org.jetbrains.anko.recyclerview.v7.recyclerView
-import org.jetbrains.anko.support.v4.onRefresh
-import org.jetbrains.anko.support.v4.swipeRefreshLayout
+import org.jetbrains.anko.design.bottomNavigationView
 
-class MainActivity : AppCompatActivity(), MainView {
-    private var footBallClubList: MutableList<Team> = mutableListOf()
-    private lateinit var presenter: MainPresenter
-    private lateinit var adapter: MainAdapter
-    private lateinit var listTeam: RecyclerView
-    private lateinit var spinner: Spinner
-    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    private lateinit var progressBar: ProgressBar
-    private lateinit var leagueName: String
+class MainActivity : AppCompatActivity() {
+    private val TEAMS_FRAGMENT = 0
+    private val MATCH_FRAGMENT = 1
+    private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var fragment: Fragment
+    private var fragmentManager: FragmentManager = supportFragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //Set default fragment
+        setFragment(TEAMS_FRAGMENT)
+
         //Create view
         verticalLayout {
-            lparams(width = matchParent, height = wrapContent)
-            leftPadding = dip(8)
-            rightPadding = dip(8)
-            bottomPadding = dip(8)
-            elevation = dip(3).toFloat()
-
-            spinner = spinner().lparams(width = matchParent, height = wrapContent) {
-                margin = dip(16)
+            lparams(width = matchParent, height = wrapContent) {
+                margin = 0
+                padding = 0
             }
 
-            swipeRefreshLayout = swipeRefreshLayout {
-                setColorSchemeResources(
-                    R.color.colorAccent,
-                    android.R.color.holo_green_light,
-                    android.R.color.holo_orange_light,
-                    android.R.color.holo_blue_light
-                )
-
-                relativeLayout {
-                    lparams(width = matchParent, height = wrapContent)
-
-                    listTeam = recyclerView {
-                        layoutManager = LinearLayoutManager(context)
-                    }.lparams(width = matchParent, height = wrapContent)
-
-                    progressBar = progressBar {
-                    }.lparams {
-                        centerInParent()
-                    }
+            frameLayout {
+                frameLayout {
+                    id = R.id.main_content
                 }
-            }
-        }
-
-        //Initialize presenter
-        val gson = Gson()
-        presenter = MainPresenter(this, gson)
-
-        //Add leagues to spinner
-        presenter.getLeagueList()
-
-        //Add adapter to RecyclerView
-        adapter = MainAdapter(footBallClubList)
-        listTeam.adapter = adapter
-
-        //Add OnItemSelectedListener for spinner
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                leagueName = spinner.selectedItem.toString()
-                presenter.getTeamList(leagueName)
+            }.lparams(width = matchParent, height = dip(0)) {
+                weight = 15.0f
+                leftPadding = dip(8)
+                rightPadding = dip(8)
             }
 
-            override fun onNothingSelected(p0: AdapterView<*>?) {}
+            bottomNavigationView = bottomNavigationView {
+                inflateMenu(R.menu.bottom_nav_view)
+                fitsSystemWindows = true
+                backgroundResource = android.R.color.white
+                elevation = 5.0f
+
+                setOnNavigationItemSelectedListener { item ->
+                    when (item.itemId) {
+                        R.id.mn_teams -> setFragment(TEAMS_FRAGMENT)
+                        R.id.mn_match -> setFragment(MATCH_FRAGMENT)
+                    }
+
+                    true
+                }
+            }.lparams(width = matchParent, height = dip(0)) {
+                weight = 1.0f
+                topPadding = 0
+                leftPadding = 0
+                bottomPadding = 0
+                rightPadding = 0
+            }
         }
+    }
 
-        //Add OnRefreshListener for swipeRefreshLayout
-        swipeRefreshLayout.onRefresh {
-            presenter.getTeamList(leagueName)
+    private fun setFragment(fragmentId: Int) {
+        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+
+        when (fragmentId) {
+            TEAMS_FRAGMENT -> {
+                fragment = TeamsFragment()
+                fragmentTransaction.replace(R.id.main_content, fragment).commit()
+            }
+
+            MATCH_FRAGMENT -> {
+                fragment = MatchFragment()
+                fragmentTransaction.replace(R.id.main_content, fragment).commit()
+            }
         }
-    }
-
-    override fun showLoading() {
-        listTeam.visibility = RecyclerView.INVISIBLE
-        progressBar.visibility = ProgressBar.VISIBLE
-    }
-
-    override fun hideLoading() {
-        listTeam.visibility = RecyclerView.VISIBLE
-        progressBar.visibility = ProgressBar.INVISIBLE
-    }
-
-    override fun showTeamList(teams: List<Team>) {
-        swipeRefreshLayout.isRefreshing = false
-
-        footBallClubList.clear()
-        footBallClubList.addAll(teams)
-
-        adapter.notifyDataSetChanged()
-    }
-
-    override fun showLeagueList(leagues: List<League>) {
-        swipeRefreshLayout.isRefreshing = false
-
-        val spinnerItems: MutableList<String> = mutableListOf()
-        for (league in leagues) {
-            spinnerItems.add(league.name.toString())
-        }
-
-        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, spinnerItems)
-        spinner.adapter = spinnerAdapter
     }
 }
