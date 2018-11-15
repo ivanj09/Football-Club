@@ -1,8 +1,7 @@
 package com.ivanjt.footballclub.View
 
-interface MatchesView {
+interface NextMatchesView {
     fun showLoading()
     fun hideLoading()
     fun showNextMatches()
-    fun showLastMatcher()
 }

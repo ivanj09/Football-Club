@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             MATCH_FRAGMENT -> {
-                fragment = MatchFragment()
+                fragment = MatchesFragment()
                 fragmentTransaction.replace(R.id.main_content, fragment).commit()
             }
         }

@@ -26,7 +26,7 @@ import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
 class TeamsFragment : Fragment(), TeamsView {
     private var footBallClubList: MutableList<Team> = mutableListOf()
-    private lateinit var listTeam: RecyclerView
+    private lateinit var recyclerView: RecyclerView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var progressBar: ProgressBar
     private lateinit var presenter: TeamsPresenter
@@ -46,7 +46,7 @@ class TeamsFragment : Fragment(), TeamsView {
 
         //Add adapter to RecyclerView
         adapter = TeamsAdapter(footBallClubList)
-        listTeam.adapter = adapter
+        recyclerView.adapter = adapter
 
         //Add OnItemSelectedListener for spinner
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -87,7 +87,7 @@ class TeamsFragment : Fragment(), TeamsView {
                     relativeLayout {
                         lparams(width = matchParent, height = wrapContent)
 
-                        listTeam = recyclerView {
+                        recyclerView = recyclerView {
                             layoutManager = LinearLayoutManager(context)
                         }.lparams(width = matchParent, height = wrapContent)
 
@@ -104,12 +104,12 @@ class TeamsFragment : Fragment(), TeamsView {
     }
 
     override fun showLoading() {
-        listTeam.visibility = RecyclerView.INVISIBLE
+        recyclerView.visibility = RecyclerView.INVISIBLE
         progressBar.visibility = ProgressBar.VISIBLE
     }
 
     override fun hideLoading() {
-        listTeam.visibility = RecyclerView.VISIBLE
+        recyclerView.visibility = RecyclerView.VISIBLE
         progressBar.visibility = ProgressBar.INVISIBLE
     }
 

@@ -10,5 +10,5 @@ data class League(
     var name: String?,
 
     @SerializedName("strSport")
-    var leagueType: String?
+    var sportType: String?
 )

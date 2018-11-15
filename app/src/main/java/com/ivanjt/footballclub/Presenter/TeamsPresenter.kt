@@ -26,12 +26,12 @@ class TeamsPresenter(private val view: TeamsView, private val gson: Gson) {
         view.showLoading()
         doAsync {
             val data = gson.fromJson(
-                NetworkUtil.doRequest("https://www.thesportsdb.com/api/v1/json/1/all_leagues.php"),
+                NetworkUtil.doRequest(SportDbAPI.getLeagues()),
                 LeagueResponse::class.java
             )
 
             //Remove league if type of league is not soccer league
-            data.leagues = data.leagues.filter { league -> league.leagueType == "Soccer" }
+            data.leagues = data.leagues.filter { league -> league.sportType == "Soccer" }
 
             uiThread {
                 view.hideLoading()
