@@ -6,62 +6,124 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.ProgressBar
 import android.widget.Spinner
+import com.google.gson.Gson
+import com.ivanjt.footballclub.Adapter.MainAdapter
+import com.ivanjt.footballclub.Model.League
 import com.ivanjt.footballclub.Model.Team
+import com.ivanjt.footballclub.Presenter.MainPresenter
+import com.ivanjt.footballclub.View.MainView
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
+import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
-class MainActivity : AppCompatActivity() {
-    private var footBallClubList: List<Team>? = null
+class MainActivity : AppCompatActivity(), MainView {
+    private var footBallClubList: MutableList<Team> = mutableListOf()
+    private lateinit var presenter: MainPresenter
+    private lateinit var adapter: MainAdapter
+    private lateinit var listTeam: RecyclerView
+    private lateinit var spinner: Spinner
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var progressBar: ProgressBar
+    private lateinit var leagueName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        MainActivityUI().setContentView(this)
-    }
+        //Create view
+        verticalLayout {
+            lparams(width = matchParent, height = wrapContent)
+            leftPadding = dip(8)
+            rightPadding = dip(8)
+            bottomPadding = dip(8)
+            elevation = dip(3).toFloat()
 
-    class MainActivityUI : AnkoComponent<MainActivity> {
-        private lateinit var listTeam: RecyclerView
-        private lateinit var spinner: Spinner
-        private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-        private lateinit var progressBar: ProgressBar
+            spinner = spinner().lparams(width = matchParent, height = wrapContent) {
+                margin = dip(16)
+            }
 
-        override fun createView(ui: AnkoContext<MainActivity>): View = with(ui) {
-            verticalLayout {
-                lparams(width = matchParent, height = wrapContent)
-                leftPadding = dip(8)
-                rightPadding = dip(8)
-                bottomPadding = dip(8)
+            swipeRefreshLayout = swipeRefreshLayout {
+                setColorSchemeResources(
+                    R.color.colorAccent,
+                    android.R.color.holo_green_light,
+                    android.R.color.holo_orange_light,
+                    android.R.color.holo_blue_light
+                )
 
-                swipeRefreshLayout = swipeRefreshLayout {
-                    setColorSchemeResources(
-                        R.color.colorAccent,
-                        android.R.color.holo_green_light,
-                        android.R.color.holo_orange_light,
-                        android.R.color.holo_blue_light
-                    )
+                relativeLayout {
+                    lparams(width = matchParent, height = wrapContent)
 
-                    relativeLayout {
-                        lparams(width = matchParent, height = wrapContent)
+                    listTeam = recyclerView {
+                        layoutManager = LinearLayoutManager(context)
+                    }.lparams(width = matchParent, height = wrapContent)
 
-                        spinner = spinner().lparams(width = matchParent, height = wrapContent) {
-                            margin = dip(16)
-                        }
-
-                        listTeam = recyclerView {
-                            lparams(width = matchParent, height = wrapContent)
-                            layoutManager = LinearLayoutManager(context)
-                        }
-
-                        progressBar = progressBar {
-                        }.lparams {
-                            centerInParent()
-                        }
+                    progressBar = progressBar {
+                    }.lparams {
+                        centerInParent()
                     }
                 }
             }
         }
+
+        //Initialize presenter
+        val gson = Gson()
+        presenter = MainPresenter(this, gson)
+
+        //Add leagues to spinner
+        presenter.getLeagueList()
+
+        //Add adapter to RecyclerView
+        adapter = MainAdapter(footBallClubList)
+        listTeam.adapter = adapter
+
+        //Add OnItemSelectedListener for spinner
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                leagueName = spinner.selectedItem.toString()
+                presenter.getTeamList(leagueName)
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+        }
+
+        //Add OnRefreshListener for swipeRefreshLayout
+        swipeRefreshLayout.onRefresh {
+            presenter.getTeamList(leagueName)
+        }
+    }
+
+    override fun showLoading() {
+        listTeam.visibility = RecyclerView.INVISIBLE
+        progressBar.visibility = ProgressBar.VISIBLE
+    }
+
+    override fun hideLoading() {
+        listTeam.visibility = RecyclerView.VISIBLE
+        progressBar.visibility = ProgressBar.INVISIBLE
+    }
+
+    override fun showTeamList(teams: List<Team>) {
+        swipeRefreshLayout.isRefreshing = false
+
+        footBallClubList.clear()
+        footBallClubList.addAll(teams)
+
+        adapter.notifyDataSetChanged()
+    }
+
+    override fun showLeagueList(leagues: List<League>) {
+        swipeRefreshLayout.isRefreshing = false
+
+        val spinnerItems: MutableList<String> = mutableListOf()
+        for (league in leagues) {
+            spinnerItems.add(league.name.toString())
+        }
+
+        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, spinnerItems)
+        spinner.adapter = spinnerAdapter
     }
 }

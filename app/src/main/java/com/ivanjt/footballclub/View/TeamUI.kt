@@ -1,5 +1,8 @@
 package com.ivanjt.footballclub.View
 
+import android.support.v4.content.ContextCompat
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -9,6 +12,13 @@ import org.jetbrains.anko.*
 class TeamUI : AnkoComponent<ViewGroup> {
     override fun createView(ui: AnkoContext<ViewGroup>): View = with(ui) {
         linearLayout {
+            background = with(TypedValue()) {
+                context.theme.resolveAttribute(R.attr.selectableItemBackground, this, true)
+                ContextCompat.getDrawable(context, resourceId)
+            }
+            isClickable = true
+            isFocusable = true
+
             lparams(width = matchParent, height = wrapContent)
             padding = dip(16)
             orientation = LinearLayout.HORIZONTAL
@@ -19,8 +29,10 @@ class TeamUI : AnkoComponent<ViewGroup> {
 
             textView {
                 id = R.id.team_name
+                textAppearance = R.style.TextAppearance_AppCompat_Body2
             }.lparams(width = matchParent, height = wrapContent) {
                 marginStart = dip(32)
+                gravity = Gravity.CENTER
             }
         }
     }

@@ -14,8 +14,8 @@ import org.jetbrains.anko.find
 
 class MainAdapter(private val teams: List<Team>) : RecyclerView.Adapter<MainAdapter.TeamViewHolder>() {
     inner class TeamViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val teamBadge: ImageView = itemView.find(R.id.team_badge)
-        private val teamName: TextView = itemView.find(R.id.team_name)
+        private val teamBadge: ImageView = itemView.findViewById(R.id.team_badge)
+        private val teamName: TextView = itemView.findViewById(R.id.team_name)
 
         fun bindItem(team: Team) {
             Picasso.get().load(team.badge).into(teamBadge)
