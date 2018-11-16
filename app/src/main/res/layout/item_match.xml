@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:padding="12dp"
+              android:focusable="true"
+              android:clickable="true"
+              android:background="?android:attr/selectableItemBackground"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/tv_date_event"
+            android:padding="8dp"
+            tools:text="Sep, 12 2018"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <LinearLayout
+            android:id="@+id/ll_score"
+            android:paddingBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <TextView
+                android:id="@+id/tv_home"
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                tools:text="Manchester City"
+                android:textAlignment="center"
+                style="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/tv_home_score"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                tools:text="3"
+                android:textAlignment="textEnd"
+                android:textSize="@dimen/score"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/versus"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/tv_away_score"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                tools:text="3"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/score"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/tv_away"
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                tools:text="Chelsea"
+                android:maxLines="1"
+                android:textAlignment="center"
+                style="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

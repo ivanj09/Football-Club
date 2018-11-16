@@ -30,7 +30,7 @@ class TeamsPresenter(private val view: TeamsView, private val gson: Gson) {
                 LeagueResponse::class.java
             )
 
-            //Remove league if type of league is not soccer league
+            //Remove league if type of league is not soccer sport type
             data.leagues = data.leagues.filter { league -> league.sportType == "Soccer" }
 
             uiThread {

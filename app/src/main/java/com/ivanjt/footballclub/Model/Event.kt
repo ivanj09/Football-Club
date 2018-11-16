@@ -2,15 +2,15 @@ package com.ivanjt.footballclub.Model
 
 import com.google.gson.annotations.SerializedName
 
-data class Match(
+data class Event(
     @SerializedName("idEvent")
     var id: String?,
 
-    @SerializedName("strSport")
-    var sportType: String?,
-
     @SerializedName("strEvent")
     var event: String?,
+
+    @SerializedName("strSport")
+    var sportType: String?,
 
     @SerializedName("strLeague")
     var leagueName: String?,

@@ -8,5 +8,5 @@
     <item
             android:id="@+id/mn_match"
             android:icon="@drawable/ic_football_field_in_perspective"
-            android:title="@string/match"/>
+            android:title="@string/event"/>
 </menu>

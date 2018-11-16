@@ -6,6 +6,7 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
+import android.support.v7.app.ActionBar
 import org.jetbrains.anko.*
 import org.jetbrains.anko.design.bottomNavigationView
 
@@ -18,6 +19,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val actionBar: ActionBar? = supportActionBar
+        if (actionBar != null) actionBar.elevation = 0f
 
         //Set default fragment
         setFragment(TEAMS_FRAGMENT)

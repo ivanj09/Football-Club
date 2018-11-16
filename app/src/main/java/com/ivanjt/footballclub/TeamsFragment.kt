@@ -104,13 +104,13 @@ class TeamsFragment : Fragment(), TeamsView {
     }
 
     override fun showLoading() {
-        recyclerView.visibility = RecyclerView.INVISIBLE
-        progressBar.visibility = ProgressBar.VISIBLE
+        recyclerView.visibility = View.INVISIBLE
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        recyclerView.visibility = RecyclerView.VISIBLE
-        progressBar.visibility = ProgressBar.INVISIBLE
+        recyclerView.visibility = View.VISIBLE
+        progressBar.visibility = View.INVISIBLE
     }
 
     override fun showTeamList(teams: List<Team>) {
