@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="team_badge_size">32dp</dimen>
+    <dimen name="team_badge_32">32dp</dimen>
+    <dimen name="team_badge_48">48dp</dimen>
     <dimen name="score">20sp</dimen>
 </resources>

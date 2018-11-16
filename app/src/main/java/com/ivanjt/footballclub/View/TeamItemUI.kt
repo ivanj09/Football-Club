@@ -25,7 +25,7 @@ class TeamItemUI : AnkoComponent<ViewGroup> {
 
             imageView {
                 id = R.id.team_badge
-            }.lparams(width = dip(dimen(R.dimen.team_badge_size)), height = dip(dimen(R.dimen.team_badge_size)))
+            }.lparams(width = dip(dimen(R.dimen.team_badge_32)), height = dip(dimen(R.dimen.team_badge_32)))
 
             textView {
                 id = R.id.team_name

@@ -47,7 +47,7 @@ class LastMatchesFragment : Fragment(), LastMatchesView {
         val gson = Gson()
         presenter = LastMatchesPresenter(this, gson)
 
-        //Get Last Matches
+        //Get Last Matches from English Premier League
         presenter.getLastMatches("4328")
     }
 

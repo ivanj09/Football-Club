@@ -1,16 +1,20 @@
 package com.ivanjt.footballclub.Adapter
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.ivanjt.footballclub.Adapter.LastMatchesAdapter.Companion.EXTRA_EVENT
+import com.ivanjt.footballclub.DetailActivity
 import com.ivanjt.footballclub.Model.Event
 import com.ivanjt.footballclub.R
 
 class NextMatchesAdapter(private val context: Context, private val nextEvents: MutableList<Event>) :
     RecyclerView.Adapter<NextMatchesAdapter.NextMatchesViewHolder>() {
+
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): NextMatchesViewHolder {
         return NextMatchesViewHolder(LayoutInflater.from(context).inflate(R.layout.item_match, p0, false))
     }
@@ -36,6 +40,13 @@ class NextMatchesAdapter(private val context: Context, private val nextEvents: M
             home.text = event.homeTeam
             away.text = event.awayTeam
             date.text = event.date
+
+            itemView.setOnClickListener {
+                val intent = Intent(context, DetailActivity::class.java)
+                intent.putExtra(EXTRA_EVENT, event.id)
+
+                context.startActivity(intent)
+            }
         }
     }
 }

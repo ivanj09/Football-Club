@@ -1,16 +1,22 @@
 package com.ivanjt.footballclub.Adapter
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.ivanjt.footballclub.DetailActivity
 import com.ivanjt.footballclub.Model.Event
 import com.ivanjt.footballclub.R
 
 class LastMatchesAdapter(private val context: Context, private val lastEvents: List<Event>) :
     RecyclerView.Adapter<LastMatchesAdapter.LastMatchesViewHolder>() {
+    companion object {
+        const val EXTRA_EVENT = "com.ivanjt.footballclub.EXTRA_EVENT"
+    }
+
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): LastMatchesViewHolder {
         return LastMatchesViewHolder(LayoutInflater.from(context).inflate(R.layout.item_match, p0, false))
     }
@@ -42,6 +48,13 @@ class LastMatchesAdapter(private val context: Context, private val lastEvents: L
             away.text = event.awayTeam
             awayScore.text = event.awayScore
             date.text = event.date
+
+            itemView.setOnClickListener {
+                val intent = Intent(context, DetailActivity::class.java)
+                intent.putExtra(EXTRA_EVENT, event.id)
+
+                context.startActivity(intent)
+            }
         }
     }
 
