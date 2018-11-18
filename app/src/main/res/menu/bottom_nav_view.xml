@@ -6,7 +6,12 @@
             android:title="@string/teams"/>
 
     <item
-            android:id="@+id/mn_match"
+            android:id="@+id/mn_matches"
             android:icon="@drawable/ic_football_field_in_perspective"
             android:title="@string/event"/>
+
+    <item
+            android:id="@+id/mn_favourites"
+            android:title="@string/favourites"
+            android:icon="@drawable/ic_star_black_24dp"/>
 </menu>

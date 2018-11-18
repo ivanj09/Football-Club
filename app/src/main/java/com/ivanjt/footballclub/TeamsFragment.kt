@@ -13,11 +13,11 @@ import android.widget.ArrayAdapter
 import android.widget.ProgressBar
 import android.widget.Spinner
 import com.google.gson.Gson
-import com.ivanjt.footballclub.Adapter.TeamsAdapter
-import com.ivanjt.footballclub.Model.League
-import com.ivanjt.footballclub.Model.Team
-import com.ivanjt.footballclub.Presenter.TeamsPresenter
-import com.ivanjt.footballclub.View.TeamsView
+import com.ivanjt.footballclub.adapter.TeamsAdapter
+import com.ivanjt.footballclub.model.League
+import com.ivanjt.footballclub.model.Team
+import com.ivanjt.footballclub.presenter.TeamsPresenter
+import com.ivanjt.footballclub.view.TeamsView
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 import org.jetbrains.anko.support.v4.UI

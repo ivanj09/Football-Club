@@ -6,11 +6,11 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.ImageView
 import android.widget.TextView
 import com.google.gson.Gson
-import com.ivanjt.footballclub.Adapter.LastMatchesAdapter
-import com.ivanjt.footballclub.Model.Event
-import com.ivanjt.footballclub.Model.Team
-import com.ivanjt.footballclub.Presenter.DetailPresenter
-import com.ivanjt.footballclub.View.DetailView
+import com.ivanjt.footballclub.adapter.LastMatchesAdapter
+import com.ivanjt.footballclub.model.Event
+import com.ivanjt.footballclub.model.Team
+import com.ivanjt.footballclub.presenter.DetailPresenter
+import com.ivanjt.footballclub.view.DetailView
 import com.squareup.picasso.Picasso
 
 class DetailActivity : AppCompatActivity(), DetailView {

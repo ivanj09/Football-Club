@@ -1,18 +1,22 @@
 package com.ivanjt.footballclub
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.ActionBar
+import android.support.v7.app.AppCompatActivity
 import org.jetbrains.anko.*
 import org.jetbrains.anko.design.bottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-    private val TEAMS_FRAGMENT = 0
-    private val MATCH_FRAGMENT = 1
+    companion object {
+        private const val TEAMS_FRAGMENT = 0
+        private const val MATCHES_FRAGMENT = 1
+        private const val FAVOURITES_FRAGMENT = 2
+    }
+
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var fragment: Fragment
     private var fragmentManager: FragmentManager = supportFragmentManager
@@ -24,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         if (actionBar != null) actionBar.elevation = 0f
 
         //Set default fragment
-        setFragment(TEAMS_FRAGMENT)
+        setFragment(Companion.TEAMS_FRAGMENT)
 
         //Create view
         verticalLayout {
@@ -52,7 +56,8 @@ class MainActivity : AppCompatActivity() {
                 setOnNavigationItemSelectedListener { item ->
                     when (item.itemId) {
                         R.id.mn_teams -> setFragment(TEAMS_FRAGMENT)
-                        R.id.mn_match -> setFragment(MATCH_FRAGMENT)
+                        R.id.mn_matches -> setFragment(MATCHES_FRAGMENT)
+                        R.id.mn_favourites -> setFragment(FAVOURITES_FRAGMENT)
                     }
 
                     true
@@ -76,8 +81,13 @@ class MainActivity : AppCompatActivity() {
                 fragmentTransaction.replace(R.id.main_content, fragment).commit()
             }
 
-            MATCH_FRAGMENT -> {
+            MATCHES_FRAGMENT -> {
                 fragment = MatchesFragment()
+                fragmentTransaction.replace(R.id.main_content, fragment).commit()
+            }
+
+            FAVOURITES_FRAGMENT -> {
+                fragment = FavouritesFragment()
                 fragmentTransaction.replace(R.id.main_content, fragment).commit()
             }
         }

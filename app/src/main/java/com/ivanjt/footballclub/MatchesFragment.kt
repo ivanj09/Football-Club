@@ -7,7 +7,7 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ivanjt.footballclub.Adapter.MatchesPagerAdapter
+import com.ivanjt.footballclub.adapter.MatchesPagerAdapter
 
 class MatchesFragment : Fragment() {
     private lateinit var viewPager: ViewPager

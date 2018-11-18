@@ -9,10 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import com.google.gson.Gson
-import com.ivanjt.footballclub.Adapter.LastMatchesAdapter
-import com.ivanjt.footballclub.Model.Event
-import com.ivanjt.footballclub.Presenter.LastMatchesPresenter
-import com.ivanjt.footballclub.View.LastMatchesView
+import com.ivanjt.footballclub.adapter.LastMatchesAdapter
+import com.ivanjt.footballclub.model.Event
+import com.ivanjt.footballclub.presenter.LastMatchesPresenter
+import com.ivanjt.footballclub.view.LastMatchesView
 
 class LastMatchesFragment : Fragment(), LastMatchesView {
     private var lastEventList: MutableList<Event> = mutableListOf()
