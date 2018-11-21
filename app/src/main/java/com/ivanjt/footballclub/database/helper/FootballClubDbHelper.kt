@@ -25,6 +25,7 @@ class FootballClubDbHelper(context: Context) :
         p0?.createTable(
             "favourites", true,
             "id" to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
+            "event_id" to TEXT + UNIQUE,
             "home_team_name" to TEXT,
             "home_team_badge" to TEXT,
             "home_score" to TEXT,

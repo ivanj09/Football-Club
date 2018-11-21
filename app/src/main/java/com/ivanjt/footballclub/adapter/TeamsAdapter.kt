@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.ivanjt.footballclub.model.Team
 import com.ivanjt.footballclub.R
+import com.ivanjt.footballclub.model.Team
 import com.ivanjt.footballclub.view.TeamItemUI
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.AnkoContext

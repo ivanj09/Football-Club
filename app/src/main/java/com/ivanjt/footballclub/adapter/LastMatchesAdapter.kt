@@ -2,14 +2,15 @@ package com.ivanjt.footballclub.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.ivanjt.footballclub.DetailActivity
-import com.ivanjt.footballclub.model.Event
 import com.ivanjt.footballclub.R
+import com.ivanjt.footballclub.model.Event
 
 class LastMatchesAdapter(private val context: Context, private val lastEvents: List<Event>) :
     RecyclerView.Adapter<LastMatchesAdapter.LastMatchesViewHolder>() {
@@ -35,8 +36,10 @@ class LastMatchesAdapter(private val context: Context, private val lastEvents: L
         private lateinit var away: TextView
         private lateinit var awayScore: TextView
         private lateinit var date: TextView
+        private lateinit var card: CardView
 
         fun bindItem(event: Event) {
+            card = itemView.findViewById(R.id.cv_item)
             home = itemView.findViewById(R.id.tv_home)
             homeScore = itemView.findViewById(R.id.tv_home_score)
             away = itemView.findViewById(R.id.tv_away)
@@ -49,7 +52,7 @@ class LastMatchesAdapter(private val context: Context, private val lastEvents: L
             awayScore.text = event.awayScore
             date.text = event.date
 
-            itemView.setOnClickListener {
+            card.setOnClickListener {
                 val intent = Intent(context, DetailActivity::class.java)
                 intent.putExtra(EXTRA_EVENT, event.id)
 

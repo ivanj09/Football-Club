@@ -7,10 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.ivanjt.footballclub.adapter.LastMatchesAdapter.Companion.EXTRA_EVENT
 import com.ivanjt.footballclub.DetailActivity
-import com.ivanjt.footballclub.model.Event
 import com.ivanjt.footballclub.R
+import com.ivanjt.footballclub.adapter.LastMatchesAdapter.Companion.EXTRA_EVENT
+import com.ivanjt.footballclub.model.Event
 
 class NextMatchesAdapter(private val context: Context, private val nextEvents: MutableList<Event>) :
     RecyclerView.Adapter<NextMatchesAdapter.NextMatchesViewHolder>() {

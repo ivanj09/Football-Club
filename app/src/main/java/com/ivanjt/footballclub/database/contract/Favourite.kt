@@ -2,6 +2,7 @@ package com.ivanjt.footballclub.database.contract
 
 data class Favourite(
     val id: Long?,
+    val eventId: String?,
     val homeTeamName: String?,
     val homeTeamBadge: String?,
     val homeScore: String?,
@@ -13,6 +14,7 @@ data class Favourite(
     companion object {
         const val TABLE_NAME = "favourites"
         const val ID = "id"
+        const val EVENT_ID = "event_id"
         const val HOME_TEAM_NAME = "home_team_name"
         const val HOME_TEAM_BADGE = "home_team_badge"
         const val HOME_SCORE = "home_score"
