@@ -48,6 +48,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             bottomNavigationView = bottomNavigationView {
+                id = R.id.btm_nav_view
+
                 inflateMenu(R.menu.bottom_nav_view)
                 fitsSystemWindows = true
                 backgroundResource = android.R.color.white

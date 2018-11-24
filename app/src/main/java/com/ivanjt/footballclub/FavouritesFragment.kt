@@ -45,6 +45,11 @@ class FavouritesFragment : Fragment(), FavouritesView {
         presenter.getFavourites()
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.getFavourites()
+    }
+
     override fun showLoading() {
         recyclerView.visibility = View.INVISIBLE
         progressBar.visibility = View.VISIBLE

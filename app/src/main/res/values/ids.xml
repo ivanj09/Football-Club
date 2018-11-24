@@ -3,4 +3,8 @@
     <item name="team_badge" type="id"/>
     <item name="team_name" type="id"/>
     <item name="main_content" type="id"/>
+    <item name="tv_empty_condition" type="id"/>
+    <item name="btm_nav_view" type="id"/>
+    <item name="sp_league" type="id"/>
+    <item name="rv_teams" type="id"/>
 </resources>

@@ -67,7 +67,9 @@ class TeamsFragment : Fragment(), TeamsView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return UI {
             verticalLayout {
-                spinner = spinner().lparams(width = matchParent, height = wrapContent) {
+                spinner = spinner {
+                    id = R.id.sp_league
+                }.lparams(width = matchParent, height = wrapContent) {
                     margin = dip(16)
                     leftPadding = dip(8)
                     rightPadding = dip(8)
@@ -88,6 +90,7 @@ class TeamsFragment : Fragment(), TeamsView {
                         lparams(width = matchParent, height = wrapContent)
 
                         recyclerView = recyclerView {
+                            id = R.id.rv_teams
                             layoutManager = LinearLayoutManager(context)
                         }.lparams(width = matchParent, height = wrapContent)
 
@@ -130,7 +133,9 @@ class TeamsFragment : Fragment(), TeamsView {
             spinnerItems.add(league.name.toString())
         }
 
-        val spinnerAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, spinnerItems)
-        spinner.adapter = spinnerAdapter
+        if (spinnerItems.size > 0 && context != null) {
+            val spinnerAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, spinnerItems)
+            spinner.adapter = spinnerAdapter
+        }
     }
 }

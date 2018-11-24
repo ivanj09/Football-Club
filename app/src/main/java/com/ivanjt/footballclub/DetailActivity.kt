@@ -113,7 +113,6 @@ class DetailActivity : AppCompatActivity(), DetailView {
         homeForward.text = event.homeLineupForward?.replace("; ", "\n")
         homeSubstitutes.text = event.homeLineupSubstitutes?.replace("; ", "\n")
 
-
         awayTeam.text = event.awayTeam
         awayGoal.text = event.awayScore
         awayGoalDetails.text = event.awayGoalDetails?.replace(";", "\n")?.replace(":", " - ")
