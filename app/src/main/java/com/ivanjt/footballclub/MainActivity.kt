@@ -7,6 +7,9 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.SearchView
+import android.view.Menu
+import android.view.MenuItem
 import org.jetbrains.anko.*
 import org.jetbrains.anko.design.bottomNavigationView
 
@@ -19,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var fragment: Fragment
+    private var searchMenu: MenuItem? = null
     private var fragmentManager: FragmentManager = supportFragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,21 +78,64 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_search, menu)
+
+        searchMenu = menu?.findItem(R.id.mn_search)
+        val searchView = searchMenu?.actionView as SearchView
+        searchView.queryHint = resources.getString(R.string.search)
+
+        searchView.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(p0: String?): Boolean {
+                    when (fragment) {
+                        is TeamsFragment -> {
+                            val f = fragment as TeamsFragment
+                            f.getAdapter().filter.filter(p0)
+                        }
+                        is MatchesFragment -> {
+                            val f = fragment as MatchesFragment
+                            val f1 = f.getViewPagerAdapter().getItem(0) as LastMatchesFragment
+                            val f2 = f.getViewPagerAdapter().getItem(1) as NextMatchesFragment
+
+                            f1.getAdapter().filter.filter(p0)
+                            f2.getAdapter().filter.filter(p0)
+                        }
+                    }
+
+                    return false
+                }
+
+            }
+        )
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
     private fun setFragment(fragmentId: Int) {
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
 
         when (fragmentId) {
             TEAMS_FRAGMENT -> {
+                searchMenu?.isVisible = true
                 fragment = TeamsFragment()
                 fragmentTransaction.replace(R.id.main_content, fragment).commit()
             }
 
             MATCHES_FRAGMENT -> {
+                searchMenu?.isVisible = true
+
                 fragment = MatchesFragment()
                 fragmentTransaction.replace(R.id.main_content, fragment).commit()
             }
 
             FAVOURITES_FRAGMENT -> {
+                searchMenu?.isVisible = false
+
                 fragment = FavouritesFragment()
                 fragmentTransaction.replace(R.id.main_content, fragment).commit()
             }

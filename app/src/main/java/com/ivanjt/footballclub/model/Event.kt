@@ -76,5 +76,8 @@ data class Event(
     var homeTeamId: String?,
 
     @SerializedName("idAwayTeam")
-    var awayTeamId: String?
+    var awayTeamId: String?,
+
+    @SerializedName("strTime")
+    var time: String?
 )

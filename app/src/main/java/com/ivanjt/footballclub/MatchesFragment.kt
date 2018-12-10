@@ -25,9 +25,13 @@ class MatchesFragment : Fragment() {
         tabLayout = view.findViewById(R.id.tl_matches)
 
         //Set adapter for viewPager
-        viewPager.adapter = fragmentManager?.let { MatchesPagerAdapter(view.context, it) }
+        viewPager.adapter = fragmentManager?.let { MatchesPagerAdapter(it) }
 
         //Give TabLayout the ViewPager
         tabLayout.setupWithViewPager(viewPager)
+    }
+
+    fun getViewPagerAdapter(): MatchesPagerAdapter {
+        return viewPager.adapter as MatchesPagerAdapter
     }
 }

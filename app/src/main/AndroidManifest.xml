@@ -3,6 +3,7 @@
           package="com.ivanjt.footballclub">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
 
     <application
             android:allowBackup="true"
@@ -11,7 +12,9 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+                android:launchMode="singleTop"
+                android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -19,11 +22,26 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".DetailActivity"
+                android:name=".MatchDetailActivity"
                 android:parentActivityName=".MainActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".MainActivity"/>
+        </activity>
+        <activity
+                android:name=".TeamDetailActivity"
+                android:launchMode="singleTop"
+                android:parentActivityName=".MainActivity">
+
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".MainActivity"/>
+        </activity>
+        <activity android:name=".PlayerDetailActivity"
+                  android:parentActivityName=".TeamDetailActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".TeamDetailActivity"/>
         </activity>
     </application>
 

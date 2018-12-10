@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_height="match_parent"
+        android:padding="0dp"
+        android:layout_margin="0dp"
+        android:layout_width="match_parent">
+
+    <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
+                                                 android:layout_height="wrap_content"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <ImageView
+                android:id="@+id/iv_thumb"
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="wrap_content"/>
+
+        <android.support.constraint.Guideline
+                android:id="@+id/gl_weight"
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.125"
+                android:layout_height="wrap_content"/>
+
+        <android.support.constraint.Guideline
+                android:id="@+id/gl_height"
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.875"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/tv_weight_label"
+                android:text="@string/weight"
+                android:layout_width="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/gl_weight"
+                android:layout_marginTop="16dp"
+                style="@style/TextAppearance.AppCompat.Headline"
+                app:layout_constraintTop_toBottomOf="@id/iv_thumb"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/tv_height_label"
+                android:layout_width="wrap_content"
+                android:text="@string/height"
+                app:layout_constraintEnd_toStartOf="@id/gl_height"
+                tools:text="Height"
+                android:layout_marginTop="16dp"
+                style="@style/TextAppearance.AppCompat.Headline"
+                app:layout_constraintTop_toBottomOf="@id/iv_thumb"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/tv_weight"
+                android:textColor="@color/colorAccent"
+                android:layout_width="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/tv_weight_label"
+                style="@style/TextAppearance.AppCompat.Large"
+                tools:text="68kg"
+                app:layout_constraintTop_toBottomOf="@id/tv_weight_label"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/tv_weight_label"/>
+
+        <TextView
+                android:id="@+id/tv_height"
+                android:textColor="@color/colorAccent"
+                android:layout_width="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/tv_height_label"
+                style="@style/TextAppearance.AppCompat.Large"
+                tools:text="1''"
+                app:layout_constraintTop_toBottomOf="@id/tv_weight_label"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/tv_height_label"/>
+
+        <TextView
+                android:id="@+id/tv_player_position"
+                android:textColor="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="12dp"
+                tools:text="Midfielder"
+                style="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintTop_toBottomOf="@id/tv_height"
+                app:layout_constraintEnd_toEndOf="@id/gl_height"
+                app:layout_constraintStart_toStartOf="@id/gl_weight"
+                android:layout_height="wrap_content"/>
+
+        <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintTop_toBottomOf="@id/tv_player_position"/>
+
+        <TextView
+                android:id="@+id/tv_player_desc"
+                android:layout_width="match_parent"
+                android:padding="8dp"
+                style="@style/TextAppearance.AppCompat"
+                app:layout_constraintTop_toBottomOf="@id/divider"
+                android:layout_height="wrap_content"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

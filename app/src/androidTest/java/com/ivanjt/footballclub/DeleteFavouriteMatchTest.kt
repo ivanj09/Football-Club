@@ -13,7 +13,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class DeleteFavouriteTest {
+class DeleteFavouriteMatchTest {
     @Rule
     @JvmField
     var activity = ActivityTestRule(MainActivity::class.java)
@@ -25,8 +25,6 @@ class DeleteFavouriteTest {
 
     @Test
     fun deleteFavouriteTest() {
-        onView(withId(R.id.mn_favourites)).perform(click())
-
         onView(withText("Arsenal")).check(matches(isDisplayed()))
         onView(withText("Arsenal")).perform(click())
 
@@ -36,6 +34,7 @@ class DeleteFavouriteTest {
 
         onView(withText("Successfully deleted from your favourites!:)"))
             .check(matches(isDisplayed()))
+
         pressBack()
     }
 }

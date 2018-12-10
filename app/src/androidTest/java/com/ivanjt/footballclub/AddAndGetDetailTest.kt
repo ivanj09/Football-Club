@@ -37,7 +37,6 @@ class AddAndGetDetailTest {
         Thread.sleep(3500)
         onView(withText("Arsenal")).check(matches(isDisplayed()))
         onView(withText("Wolves")).check(matches(isDisplayed()))
-
     }
 
     @Test
@@ -55,5 +54,11 @@ class AddAndGetDetailTest {
 
         onView(withText("Successfully added to your favourites!:)")).check(matches(isDisplayed()))
         pressBack()
+
+        onView(withId(mn_favourites)).check(matches(isDisplayed()))
+        onView(withId(mn_favourites)).perform(click())
+
+        onView(withText("Arsenal")).check(matches(isDisplayed()))
+        onView(withText("Arsenal")).perform(click())
     }
 }

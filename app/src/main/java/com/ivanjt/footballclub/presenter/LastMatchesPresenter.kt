@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.ivanjt.footballclub.CoroutineContextProvider
 import com.ivanjt.footballclub.api.SportDbAPI
 import com.ivanjt.footballclub.model.EventResponse
+import com.ivanjt.footballclub.model.LeagueResponse
 import com.ivanjt.footballclub.utility.NetworkUtil
 import com.ivanjt.footballclub.view.LastMatchesView
 import kotlinx.coroutines.GlobalScope
@@ -28,6 +29,22 @@ class LastMatchesPresenter(
 
             view.hideLoading()
             view.showLastMatches(data.events)
+        }
+    }
+
+    fun getLeagueList() {
+        view.showLoading()
+        GlobalScope.launch(context.main) {
+            val data = gson.fromJson(
+                NetworkUtil.doRequest(SportDbAPI.getLeagues()).await(),
+                LeagueResponse::class.java
+            )
+
+            //Remove league if type of league is not soccer sport type
+            data.leagues = data.leagues.filter { league -> league.sportType == "Soccer" }
+
+            view.hideLoading()
+            view.showLeagueList(data.leagues)
         }
     }
 }

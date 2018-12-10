@@ -13,7 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.google.gson.Gson
 import com.ivanjt.footballclub.adapter.LastMatchesAdapter
-import com.ivanjt.footballclub.database.contract.Favourite
+import com.ivanjt.footballclub.database.contract.FavouriteMatch
 import com.ivanjt.footballclub.database.helper.FootballClubDbHelper
 import com.ivanjt.footballclub.model.Event
 import com.ivanjt.footballclub.model.Team
@@ -25,8 +25,10 @@ import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 import java.sql.SQLException
+import java.text.SimpleDateFormat
+import java.util.*
 
-class DetailActivity : AppCompatActivity(), DetailView {
+class MatchDetailActivity : AppCompatActivity(), DetailView {
     private lateinit var homeImage: ImageView
     private lateinit var awayImage: ImageView
     private lateinit var homeTeam: TextView
@@ -46,6 +48,8 @@ class DetailActivity : AppCompatActivity(), DetailView {
     private lateinit var homeForward: TextView
     private lateinit var awayForward: TextView
     private lateinit var homeSubstitutes: TextView
+    private lateinit var date: TextView
+    private lateinit var time: TextView
     private lateinit var awaySubstitutes: TextView
     private lateinit var presenter: DetailPresenter
     private lateinit var event: Event
@@ -57,7 +61,7 @@ class DetailActivity : AppCompatActivity(), DetailView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_details)
+        setContentView(R.layout.activity_match_details)
 
         //Set back button in actionBar
         val actionBar: ActionBar? = supportActionBar
@@ -79,6 +83,8 @@ class DetailActivity : AppCompatActivity(), DetailView {
         homeForward = findViewById(R.id.tv_home_forward)
         homeSubstitutes = findViewById(R.id.tv_home_substitutes)
         homeImage = findViewById(R.id.iv_home_team_badge)
+        time = findViewById(R.id.tv_time_event)
+        date = findViewById(R.id.tv_date_event)
 
         awayImage = findViewById(R.id.iv_away_team_badge)
         awayTeam = findViewById(R.id.tv_away)
@@ -123,6 +129,25 @@ class DetailActivity : AppCompatActivity(), DetailView {
         awayForward.text = event.awayLineupForward?.replace("; ", "\n")
         awaySubstitutes.text = event.awayLineupSubstitutes?.replace("; ", "\n")
 
+        var df1 = SimpleDateFormat("yyyy-MM-dd hh:mm:ssZZZZZ")
+        var df2 = SimpleDateFormat("hh:mm:ssZZZZZ")
+
+        df1.timeZone = TimeZone.getTimeZone("UTC")
+        df2.timeZone = TimeZone.getTimeZone("UTC")
+        val d = df1.parse(event.date + " " + event.time)
+        val t = df2.parse(event.time)
+
+        df1 = SimpleDateFormat("EEE, dd MMM yyyy")
+        df2 = SimpleDateFormat("HH:mm")
+        df1.timeZone = TimeZone.getDefault()
+        df2.timeZone = TimeZone.getDefault()
+
+        event.date = df1.format(d)
+        event.time = df2.format(t)
+
+        date.text = event.date.toString()
+        time.text = event.time.toString()
+
         presenter.getTeamDetail(event.homeTeamId, event.awayTeamId)
     }
 
@@ -131,7 +156,7 @@ class DetailActivity : AppCompatActivity(), DetailView {
         inflater.inflate(R.menu.menu_favourites, menu)
 
         val menuItem: MenuItem? = menu?.findItem(R.id.mn_favourite)
-        menuItem?.isChecked = getFavouriteState()
+        menuItem?.isChecked = getMatchFavouriteState()
 
         if (menuItem?.isChecked!!) {
             menuItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_star_black_24dp)
@@ -165,16 +190,16 @@ class DetailActivity : AppCompatActivity(), DetailView {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun getFavouriteState(): Boolean {
+    private fun getMatchFavouriteState(): Boolean {
         return try {
             var isEmpty = false
             database.use {
-                val result = select(Favourite.TABLE_NAME)
+                val result = select(FavouriteMatch.TABLE_NAME)
                     .whereArgs(
                         "(event_id = {id})",
                         "id" to intent.extras.getString(LastMatchesAdapter.EXTRA_EVENT)
                     )
-                val favorite = result.parseList(classParser<Favourite>())
+                val favorite = result.parseList(classParser<FavouriteMatch>())
                 isEmpty = favorite.isEmpty()
             }
             !isEmpty
@@ -188,7 +213,7 @@ class DetailActivity : AppCompatActivity(), DetailView {
         return try {
             database.use {
                 delete(
-                    Favourite.TABLE_NAME,
+                    FavouriteMatch.TABLE_NAME,
                     "(event_id = {id})",
                     "id" to intent.extras.getString(LastMatchesAdapter.EXTRA_EVENT)
                 )
@@ -208,15 +233,16 @@ class DetailActivity : AppCompatActivity(), DetailView {
         return try {
             database.use {
                 insert(
-                    Favourite.TABLE_NAME,
-                    Favourite.EVENT_ID to event.id,
-                    Favourite.HOME_TEAM_NAME to event.homeTeam,
-                    Favourite.HOME_TEAM_BADGE to homeTeamBadge,
-                    Favourite.HOME_SCORE to event.homeScore,
-                    Favourite.AWAY_TEAM_NAME to event.awayTeam,
-                    Favourite.AWAY_TEAM_BADGE to awayTeamBadge,
-                    Favourite.AWAY_SCORE to event.awayScore,
-                    Favourite.DATE to event.date
+                    FavouriteMatch.TABLE_NAME,
+                    FavouriteMatch.EVENT_ID to event.id,
+                    FavouriteMatch.HOME_TEAM_NAME to event.homeTeam,
+                    FavouriteMatch.HOME_TEAM_BADGE to homeTeamBadge,
+                    FavouriteMatch.HOME_SCORE to event.homeScore,
+                    FavouriteMatch.AWAY_TEAM_NAME to event.awayTeam,
+                    FavouriteMatch.AWAY_TEAM_BADGE to awayTeamBadge,
+                    FavouriteMatch.AWAY_SCORE to event.awayScore,
+                    FavouriteMatch.DATE to event.date,
+                    FavouriteMatch.TIME to event.time
                 )
             }
 

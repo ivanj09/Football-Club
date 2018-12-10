@@ -20,18 +20,43 @@
             android:padding="4dp"
             android:layout_height="wrap_content">
 
-        <TextView
-                android:id="@+id/tv_date_event"
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
                 android:padding="8dp"
-                tools:text="Sep, 12 2018"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/tv_date_event"
+                    tools:text="Sep, 12 2018"
+                    android:gravity="center"
+                    android:textColor="@color/colorAccent"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="match_parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_height="wrap_content"/>
+
+            <ImageView
+                    android:id="@+id/iv_reminder"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_notifications_active_24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_height="wrap_content"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <TextView
+                android:id="@+id/tv_time_event"
+                android:paddingBottom="8dp"
+                android:paddingTop="4dp"
+                tools:text="09.00 AM"
                 android:gravity="center"
                 android:textColor="@color/colorAccent"
-                style="@style/TextAppearance.AppCompat.Medium"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
         <LinearLayout
-                android:id="@+id/ll_score"
                 android:paddingBottom="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

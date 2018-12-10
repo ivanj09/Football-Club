@@ -13,6 +13,7 @@ object SportDbAPI {
     private const val SEARCH_ALL_LEAGUES = "all_leagues.php"
     private const val LOOKUP_EVENT = "lookupevent.php"
     private const val LOOKUP_TEAM = "lookupteam.php"
+    private const val LOOKUP_PLAYERS = "lookup_all_players.php"
     private const val SEARCH_15_LAST_MATCHES = "eventspastleague.php"
     private const val SEARCH_15_NEXT_MATCHES = "eventsnextleague.php"
 
@@ -78,6 +79,17 @@ object SportDbAPI {
             .appendPath(BuildConfig.TSDB_API_KEY)
             .appendPath(LOOKUP_EVENT)
             .appendQueryParameter(QUERY_ID_LEAGUE_PARAM, idEvent)
+            .build().toString()
+    }
+
+    fun getPlayers(teamId: String): String {
+        return Uri.parse(BuildConfig.BASE_URL).buildUpon()
+            .appendPath(API)
+            .appendPath(VERSION)
+            .appendPath(FORMAT)
+            .appendPath(BuildConfig.TSDB_API_KEY)
+            .appendPath(LOOKUP_PLAYERS)
+            .appendQueryParameter(QUERY_ID_LEAGUE_PARAM, teamId)
             .build().toString()
     }
 }

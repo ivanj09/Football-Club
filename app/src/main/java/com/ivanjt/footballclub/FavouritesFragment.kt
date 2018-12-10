@@ -1,70 +1,31 @@
 package com.ivanjt.footballclub
 
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import com.google.gson.Gson
-import com.ivanjt.footballclub.adapter.LastMatchesAdapter
-import com.ivanjt.footballclub.model.Event
-import com.ivanjt.footballclub.presenter.FavouritesPresenter
-import com.ivanjt.footballclub.view.FavouritesView
+import com.ivanjt.footballclub.adapter.FavouritePagerAdapter
 
-class FavouritesFragment : Fragment(), FavouritesView {
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var presenter: FavouritesPresenter
-    private lateinit var adapter: LastMatchesAdapter
-    private lateinit var progressBar: ProgressBar
-    private var favouriteList: MutableList<Event> = mutableListOf()
+class FavouritesFragment : Fragment() {
+    private lateinit var viewPager: ViewPager
+    private lateinit var tabLayout: TabLayout
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_event_matches, container, false)
+        return inflater.inflate(R.layout.fragment_matches, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         //Reference to xml view
-        recyclerView = view.findViewById(R.id.rv_matches)
-        progressBar = view.findViewById(R.id.pb_loading)
+        viewPager = view.findViewById(R.id.vp_matches)
+        tabLayout = view.findViewById(R.id.tl_matches)
 
-        //Give adapter to RecyclerView
-        adapter = LastMatchesAdapter(view.context, favouriteList)
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(view.context)
-
-        //Initialize presenter
-        val gson = Gson()
-        presenter = FavouritesPresenter(this, view.context, gson)
-
-        //Get favourites from db
-        presenter.getFavourites()
+        //Give pager adapter to viewPager
+        viewPager.adapter = fragmentManager?.let { FavouritePagerAdapter(it) }
+        tabLayout.setupWithViewPager(viewPager)
     }
-
-    override fun onResume() {
-        super.onResume()
-        presenter.getFavourites()
-    }
-
-    override fun showLoading() {
-        recyclerView.visibility = View.INVISIBLE
-        progressBar.visibility = View.VISIBLE
-    }
-
-    override fun hideLoading() {
-        recyclerView.visibility = View.VISIBLE
-        progressBar.visibility = View.INVISIBLE
-    }
-
-    override fun showFavourites(events: List<Event>) {
-        favouriteList.clear()
-        favouriteList.addAll(events)
-
-        adapter.notifyDataSetChanged()
-    }
-
 }

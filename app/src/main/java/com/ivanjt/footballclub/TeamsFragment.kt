@@ -34,6 +34,10 @@ class TeamsFragment : Fragment(), TeamsView {
     private lateinit var spinner: Spinner
     private lateinit var leagueName: String
 
+    fun getAdapter(): TeamsAdapter {
+        return adapter
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -45,7 +49,7 @@ class TeamsFragment : Fragment(), TeamsView {
         presenter.getLeagueList()
 
         //Add adapter to RecyclerView
-        adapter = TeamsAdapter(footBallClubList)
+        adapter = TeamsAdapter(view.context, footBallClubList)
         recyclerView.adapter = adapter
 
         //Add OnItemSelectedListener for spinner
@@ -123,6 +127,9 @@ class TeamsFragment : Fragment(), TeamsView {
         footBallClubList.addAll(teams)
 
         adapter.notifyDataSetChanged()
+
+        val filter = adapter.filter as TeamsAdapter.TeamsFilter
+        filter.notifyDataSetChanged()
     }
 
     override fun showLeagueList(leagues: List<League>) {
